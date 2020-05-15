@@ -46,9 +46,13 @@ struct curl_easyoption {
   curl_easytype type;
 };
 
-const struct curl_easyoption *curl_easy_option_by_name(const char *name);
-const struct curl_easyoption *curl_easy_option_by_id (CURLoption id);
-const struct curl_easyoption *
+CURL_EXTERN const struct curl_easyoption *
+curl_easy_option_by_name(const char *name);
+
+CURL_EXTERN const struct curl_easyoption *
+curl_easy_option_by_id (CURLoption id);
+
+CURL_EXTERN const struct curl_easyoption *
 curl_easy_option_next(const struct curl_easyoption *prev);
 
 #ifdef __cplusplus
