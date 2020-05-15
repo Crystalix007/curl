@@ -68,10 +68,16 @@ int test(char *URL)
       /* This is a string. Make sure that passing in a string longer
          CURL_MAX_INPUT_LENGTH returns an error */
       result = curl_easy_setopt(easy, o->id, buffer);
-      if(result != CURLE_BAD_FUNCTION_ARGUMENT) {
+      switch(result) {
+      case CURLE_BAD_FUNCTION_ARGUMENT: /* the most normal */
+      case CURLE_UNKNOWN_OPTION: /* left out from the build */
+        break;
+      default:
+        /* all other return codes are unexpected */
         fprintf(stderr, "curl_easy_setopt(%s...) returned %d\n",
                 o->name, (int)result);
         error++;
+        break;
       }
     }
   }
