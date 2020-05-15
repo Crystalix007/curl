@@ -71,6 +71,7 @@ int test(char *URL)
       switch(result) {
       case CURLE_BAD_FUNCTION_ARGUMENT: /* the most normal */
       case CURLE_UNKNOWN_OPTION: /* left out from the build */
+      case CURLE_NOT_BUILT_IN: /* not supported */
         break;
       default:
         /* all other return codes are unexpected */
