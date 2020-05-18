@@ -39,7 +39,8 @@ static struct curl_easyoption *lookup(const char *name, CURLoption id)
           return o;
       }
       else {
-        if(o->id == id)
+        if((o->id == id) && !(o->flags & CURLOT_FLAG_ALIAS))
+          /* don't match alias options */
           return o;
       }
       o++;
@@ -53,7 +54,7 @@ const struct curl_easyoption *curl_easy_option_by_name(const char *name)
   return lookup(name, 0);
 }
 
-const struct curl_easyoption *curl_easy_option_by_id (CURLoption id)
+const struct curl_easyoption *curl_easy_option_by_id(CURLoption id)
 {
   return lookup(NULL, id);
 }

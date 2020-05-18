@@ -83,23 +83,25 @@ while(<STDIN>) {
 
 for my $name (sort @names) {
     my $oname = $name;
-    if($alias{$name}) {
-        print "  /* $name is an alias for $alias{$name} */\n";
+    my $a = $alias{$name};
+    my $flag = "0";
+    if($a) {
         $name = $alias{$name};
+        $flag = "CURLOT_FLAG_ALIAS";
     }
-    $o = sprintf("  {\"%s\", %s, %s},\n",
-                 $oname, $opt{$name}, $type{$name});
+    $o = sprintf("  {\"%s\", %s, %s, %s},\n",
+                 $oname, $opt{$name}, $type{$name}, $flag);
     if(length($o) < 80) {
         print $o;
     }
     else {
-        printf("  {\"%s\", %s,\n   %s},\n",
-                 $oname, $opt{$name}, $type{$name});
+        printf("  {\"%s\", %s,\n   %s, %s},\n",
+                 $oname, $opt{$name}, $type{$name}, $flag);
     }
 }
 
 print <<FOOT
-  {NULL, 0, 0} /* end of table */
+  {NULL, 0, 0, 0} /* end of table */
 };
 
 #ifdef CURLDEBUG
