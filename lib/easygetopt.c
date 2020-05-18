@@ -64,7 +64,8 @@ curl_easy_option_next(const struct curl_easyoption *prev)
 {
   if(prev && prev->name) {
     prev++;
-    return prev;
+    if(prev->name)
+      return prev;
   }
   else if(!prev)
     return &Curl_easyopts[0];
