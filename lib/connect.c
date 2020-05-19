@@ -318,6 +318,9 @@ static CURLcode bindlocal(struct connectdata *conn,
       }
 #endif
 
+      int t = 1;
+      setsockopt(sockfd, SOL_IP, IP_FREEBIND, &t, sizeof(t));
+
       switch(Curl_if2ip(af, scope, conn->scope_id, dev,
                         myhost, sizeof(myhost))) {
         case IF2IP_NOT_FOUND:
